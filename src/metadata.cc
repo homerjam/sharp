@@ -38,7 +38,6 @@ class MetadataWorker : public NanAsyncWorker {
   ~MetadataWorker() {}
 
   void Execute() {
-    const char *p;
     // Decrement queued task counter
     g_atomic_int_dec_and_test(&counterQueue);
 
@@ -71,11 +70,13 @@ class MetadataWorker : public NanAsyncWorker {
         case ImageType::MAGICK: baton->format = "magick"; break;
         case ImageType::UNKNOWN: break;
       }
+      const char *p;
+      vips_image_get_string(image, VIPS_META_ICC_NAME, &p);
       // VipsImage attributes
       baton->width = image->Xsize;
       baton->height = image->Ysize;
       baton->space = vips_enum_nick(VIPS_TYPE_INTERPRETATION, image->Type);
-      baton->profile = vips_image_get_string(image, VIPS_META_ICC_NAME, &p);
+      baton->profile = p;
       baton->channels = image->Bands;
       baton->hasProfile = HasProfile(image);
       // Derived attributes
