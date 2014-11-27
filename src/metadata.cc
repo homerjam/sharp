@@ -76,7 +76,7 @@ class MetadataWorker : public NanAsyncWorker {
       baton->width = image->Xsize;
       baton->height = image->Ysize;
       baton->space = vips_enum_nick(VIPS_TYPE_INTERPRETATION, image->Type);
-      baton->profile = itoa(p);
+      baton->profile = p.c_str();
       baton->channels = image->Bands;
       baton->hasProfile = HasProfile(image);
       // Derived attributes
