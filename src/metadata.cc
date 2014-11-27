@@ -38,6 +38,7 @@ class MetadataWorker : public NanAsyncWorker {
   ~MetadataWorker() {}
 
   void Execute() {
+    const char *p;
     // Decrement queued task counter
     g_atomic_int_dec_and_test(&counterQueue);
 
