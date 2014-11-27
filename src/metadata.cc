@@ -9,7 +9,7 @@
 using namespace v8;
 using namespace sharp;
 
-string SimpleItoa(int x) {
+std::string SimpleItoa(int x) {
   char buf[16];
   snprintf(buf, sizeof(buf), "%d", x);
   return string(buf);
