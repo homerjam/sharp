@@ -19,6 +19,7 @@ struct MetadataBaton {
   int width;
   int height;
   std::string space;
+  std::string profile;
   int channels;
   bool hasProfile;
   bool hasAlpha;
@@ -73,6 +74,7 @@ class MetadataWorker : public NanAsyncWorker {
       baton->width = image->Xsize;
       baton->height = image->Ysize;
       baton->space = vips_enum_nick(VIPS_TYPE_INTERPRETATION, image->Type);
+      baton->profile = vips_image_get_typeof(image, VIPS_META_ICC_NAME);
       baton->channels = image->Bands;
       baton->hasProfile = HasProfile(image);
       // Derived attributes
@@ -100,6 +102,7 @@ class MetadataWorker : public NanAsyncWorker {
       info->Set(NanNew<String>("width"), NanNew<Number>(baton->width));
       info->Set(NanNew<String>("height"), NanNew<Number>(baton->height));
       info->Set(NanNew<String>("space"), NanNew<String>(baton->space));
+      info->Set(NanNew<String>("profile"), NanNew<String>(baton->profile));
       info->Set(NanNew<String>("channels"), NanNew<Number>(baton->channels));
       info->Set(NanNew<String>("hasProfile"), NanNew<Boolean>(baton->hasProfile));
       info->Set(NanNew<String>("hasAlpha"), NanNew<Boolean>(baton->hasAlpha));
