@@ -72,11 +72,12 @@ class MetadataWorker : public NanAsyncWorker {
       }
       const char *p;
       vips_image_get_string(image, VIPS_META_ICC_NAME, &p);
+      std::string profile = p;
       // VipsImage attributes
       baton->width = image->Xsize;
       baton->height = image->Ysize;
       baton->space = vips_enum_nick(VIPS_TYPE_INTERPRETATION, image->Type);
-      baton->profile = str(p);
+      baton->profile = profile;
       baton->channels = image->Bands;
       baton->hasProfile = HasProfile(image);
       // Derived attributes
