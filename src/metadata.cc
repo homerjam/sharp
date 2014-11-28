@@ -70,9 +70,9 @@ class MetadataWorker : public NanAsyncWorker {
         case ImageType::MAGICK: baton->format = "magick"; break;
         case ImageType::UNKNOWN: break;
       }
-      const char *p;
+      const char * p;
       vips_image_get_string(image, VIPS_META_ICC_NAME, &p);
-      std::string profile = str(p);
+      std::string profile = p;
       // VipsImage attributes
       baton->width = image->Xsize;
       baton->height = image->Ysize;
