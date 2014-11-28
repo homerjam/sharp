@@ -72,9 +72,9 @@ class MetadataWorker : public NanAsyncWorker {
       }
       const char * p;
       vips_image_get_string(image, VIPS_META_ICC_NAME, &p);
-      // std::string profile = p;
+      std::string profile = p;
       char buff[100];
-      sprintf(buff, "%s", p);
+      sprintf(buff, "%s", profile);
       std::string buffAsStdStr = buff;
       // VipsImage attributes
       baton->width = image->Xsize;
